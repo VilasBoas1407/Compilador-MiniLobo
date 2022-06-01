@@ -12,3 +12,17 @@ D:\Projetos\Compilador - MiniLobo\Analisador Léxico\AnalisadorLexico\obj\Debug\
 D:\Projetos\Compilador - MiniLobo\Analisador Léxico\AnalisadorLexico\obj\Debug\netcoreapp3.1\AnalisadorLexico.dll
 D:\Projetos\Compilador - MiniLobo\Analisador Léxico\AnalisadorLexico\obj\Debug\netcoreapp3.1\AnalisadorLexico.pdb
 D:\Projetos\Compilador - MiniLobo\Analisador Léxico\AnalisadorLexico\obj\Debug\netcoreapp3.1\AnalisadorLexico.genruntimeconfig.cache
+D:\Projetos\Compilador - MiniLobo\AnalisadorLexico\bin\Debug\netcoreapp3.1\AnalisadorLexico.exe
+D:\Projetos\Compilador - MiniLobo\AnalisadorLexico\bin\Debug\netcoreapp3.1\AnalisadorLexico.deps.json
+D:\Projetos\Compilador - MiniLobo\AnalisadorLexico\bin\Debug\netcoreapp3.1\AnalisadorLexico.runtimeconfig.json
+D:\Projetos\Compilador - MiniLobo\AnalisadorLexico\bin\Debug\netcoreapp3.1\AnalisadorLexico.runtimeconfig.dev.json
+D:\Projetos\Compilador - MiniLobo\AnalisadorLexico\bin\Debug\netcoreapp3.1\AnalisadorLexico.dll
+D:\Projetos\Compilador - MiniLobo\AnalisadorLexico\bin\Debug\netcoreapp3.1\AnalisadorLexico.pdb
+D:\Projetos\Compilador - MiniLobo\AnalisadorLexico\obj\Debug\netcoreapp3.1\AnalisadorLexico.csproj.AssemblyReference.cache
+D:\Projetos\Compilador - MiniLobo\AnalisadorLexico\obj\Debug\netcoreapp3.1\AnalisadorLexico.GeneratedMSBuildEditorConfig.editorconfig
+D:\Projetos\Compilador - MiniLobo\AnalisadorLexico\obj\Debug\netcoreapp3.1\AnalisadorLexico.AssemblyInfoInputs.cache
+D:\Projetos\Compilador - MiniLobo\AnalisadorLexico\obj\Debug\netcoreapp3.1\AnalisadorLexico.AssemblyInfo.cs
+D:\Projetos\Compilador - MiniLobo\AnalisadorLexico\obj\Debug\netcoreapp3.1\AnalisadorLexico.csproj.CoreCompileInputs.cache
+D:\Projetos\Compilador - MiniLobo\AnalisadorLexico\obj\Debug\netcoreapp3.1\AnalisadorLexico.dll
+D:\Projetos\Compilador - MiniLobo\AnalisadorLexico\obj\Debug\netcoreapp3.1\AnalisadorLexico.pdb
+D:\Projetos\Compilador - MiniLobo\AnalisadorLexico\obj\Debug\netcoreapp3.1\AnalisadorLexico.genruntimeconfig.cache
