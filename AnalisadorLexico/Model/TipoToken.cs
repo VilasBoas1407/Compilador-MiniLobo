@@ -8,6 +8,7 @@
         Space,
         Tab,
         LineBreak,
+        RW_VAR,
         RW_Program,
         RW_Print,
         RW_Begin,

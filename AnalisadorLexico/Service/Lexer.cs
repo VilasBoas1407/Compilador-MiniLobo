@@ -16,6 +16,7 @@ namespace AnalisadorLexico.Service
             Estado = 1;
             Lexema = "";
             FechouTexto = true;
+            FechouPontoVirgula = true;
         }
 
         public static int CurrentIndex { get; set; }
@@ -25,6 +26,7 @@ namespace AnalisadorLexico.Service
         public static string Lexema { get; set; }
         public static int Estado { get; set; }
         public static bool FechouTexto { get; set; }
+        public static bool FechouPontoVirgula { get; set; }
 
         public static bool IsDigit(string value)
         {
@@ -32,14 +34,14 @@ namespace AnalisadorLexico.Service
             return int.TryParse(value, out n);
         }
 
-        public static bool IsAlphaNum(string value)
+        public static bool IsLetter(string value)
         {
             if (string.IsNullOrEmpty(value))
                 return false;
 
             for (int i = 0; i < value.Length; i++)
             {
-                if (!(char.IsLetter(value[i])) && (!(char.IsNumber(value[i]))))
+                if (!(char.IsLetter(value[i])))
                     return false;
             }
 
@@ -73,6 +75,10 @@ namespace AnalisadorLexico.Service
                     if (!FechouTexto)
                     {
                         return Error("",$"Quebra de linha sem fechar texto na linha : {CurrentLine} e coluna: {CurrentIndex}");
+                    }
+                    else if (!FechouPontoVirgula)
+                    {
+                        return Error("", $"Esperado ponto e vírgula na linha : {CurrentLine} e coluna : {CurrentIndex}");
                     }
 
                     CurrentIndex++;
@@ -134,7 +140,9 @@ namespace AnalisadorLexico.Service
                     }
                     else if (c == ":")
                     {
+                        FechouPontoVirgula = false;
                         Estado = 2;
+                        Lexema += c;
                         CurrentIndex++;
                     }
                     else if (IsDigit(c))
@@ -142,7 +150,7 @@ namespace AnalisadorLexico.Service
                         Lexema += c;
                         Estado = 3;
                     }
-                    else if (IsAlphaNum(c))
+                    else if (IsLetter(c))
                     {
                         Lexema += c;
                         Estado = 4;
@@ -163,7 +171,21 @@ namespace AnalisadorLexico.Service
                 //Verifica se é um ID
                 else if (Estado == 2)
                 {
-
+                    if(c == ";")
+                    {
+                        Lexema += c;
+                        string valor = Lexema;
+                        Lexema = "";
+                        Estado = 1;
+                        FechouPontoVirgula = true;
+                        CurrentIndex++;
+                        return new TS(valor, TipoToken.RW_VAR, CurrentIndex, CurrentLine);
+                    }
+                    else 
+                    {
+                        Lexema += c;
+                        CurrentIndex++;
+                    }
                 }
                 //Verifica se é uma palavra reservada
                 else if (Estado == 4)
