@@ -1,5 +1,4 @@
-﻿/*-+ -
-program “HelloMiniLogo”
+﻿program “HelloMiniLogo”
 :var;
 begin
 print “movendo para frente”;

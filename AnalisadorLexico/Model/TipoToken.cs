@@ -3,6 +3,7 @@
     public enum TipoToken
     {
         Undefined,
+        String,
         Eof,
         Space,
         Tab,
