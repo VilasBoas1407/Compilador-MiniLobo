@@ -68,45 +68,46 @@ namespace AnalisadorLexico.Service
             //Para fazer a contagem de linhas deve-se criar um outro index e se basear nele, enquanto CurrentIndex vai estar lendo o arquivo
             while (true)
             {
+
                 string c = Source.Substring(CurrentIndex, 1);
-
-                if (c == "\r" || c == "\n") //Nova linha 
-                {
-                    if (!FechouTexto)
-                    {
-                        return Error("",$"Quebra de linha sem fechar texto na linha : {CurrentLine} e coluna: {CurrentIndex}");
-                    }
-                    else if (!FechouPontoVirgula)
-                    {
-                        return Error("", $"Esperado ponto e vírgula na linha : {CurrentLine} e coluna : {CurrentIndex}");
-                    }
-
-                    CurrentIndex++;
-                    Lexema += c;
-
-                    if (Lexema == "\r")
-                    {
-                        TS token = ProximoToken();
-                        if (token.Valor == "\n")
-                        {
-                            return new TS(token.Valor, TipoToken.LineBreak, CurrentIndex, CurrentLine, false);
-                        }
-
-                    }
-                    else if (Lexema == QUEBRA_DE_LINHA)
-                    {
-                        CurrentLine++;
-                        Lexema = "";
-                    }
-                    else
-                    {
-                        return Error(c);
-                    }
-                    return new TS(c, TipoToken.LineBreak, CurrentIndex, CurrentLine, false);
-                }
   
                 if (Estado == 1)
                 {
+                    if (c == "\r" || c == "\n") //Nova linha 
+                    {
+                        if (!FechouTexto)
+                        {
+                            return Error("", $"Quebra de linha sem fechar texto na linha : {CurrentLine} e coluna: {CurrentIndex}");
+                        }
+                        else if (!FechouPontoVirgula)
+                        {
+                            return Error("", $"Esperado ponto e vírgula na linha : {CurrentLine} e coluna : {CurrentIndex}");
+                        }
+
+                        CurrentIndex++;
+                        Lexema += c;
+
+                        if (Lexema == "\r")
+                        {
+                            TS token = ProximoToken();
+                            if (token.Valor == "\n")
+                            {
+                                return new TS(token.Valor, TipoToken.LineBreak, CurrentIndex, CurrentLine, false);
+                            }
+
+                        }
+                        else if (Lexema == QUEBRA_DE_LINHA)
+                        {
+                            CurrentLine++;
+                            Lexema = "";
+                        }
+                        else
+                        {
+                            return Error(c);
+                        }
+                        return new TS(c, TipoToken.LineBreak, CurrentIndex, CurrentLine, false);
+                    }
+
                     if (c == "")
                     {
                         CurrentIndex++;
@@ -163,6 +164,10 @@ namespace AnalisadorLexico.Service
                         Lexema += c;
                         FechouTexto = false;
                     }
+                    else if(c ==";" && FechouTexto)
+                    {
+                        CurrentIndex++;
+                    }
                     else
                     {
                         return Error(c);
@@ -187,21 +192,57 @@ namespace AnalisadorLexico.Service
                         CurrentIndex++;
                     }
                 }
+                //Verifica se é um número
+                else if(Estado == 3)
+                {
+                    if (IsDigit(c))
+                    {
+                        //Verifica o próximo valor
+                        string nextValue = Source.Substring(CurrentIndex + 1, 1);
+                        if (IsDigit(nextValue))
+                        {
+                            Lexema += c;
+                            CurrentIndex++;
+                        }
+                        else
+                        {
+                            Lexema += c;
+                            CurrentIndex++;
+                            Estado = 1;
+                            string valor = Lexema;
+                            Lexema = "";
+                            return new TS(valor, TipoToken.Number, CurrentIndex, CurrentLine);
+                        }
+                    }
+                }
                 //Verifica se é uma palavra reservada
                 else if (Estado == 4)
                 {
-                    if (c == " ")
+                    if (c == " " || c == "\r" || c == QUEBRA_DE_LINHA)
                     {
                         TipoToken token = TabelaSimbolo.BuscaSimbolo(Lexema);
+
                         string valor = Lexema;
                         Lexema = "";
                         Estado = 1;
-                        return new TS(valor, token, CurrentIndex, CurrentLine);
+                        
+                        if (token == TipoToken.Undefined)
+                            return Error("", "Token não reconhecido!");
+                        else
+                        {
+                            return new TS(valor, token, CurrentIndex, CurrentLine);
+                        }
                     }
                     else
                     {
-                        Lexema += c;
+                        if(c != ";")
+                            Lexema += c;
                         CurrentIndex++;
+
+                        if (CurrentIndex == Source.Length && TabelaSimbolo.BuscaSimbolo(Lexema) == TipoToken.RW_End)
+                        {
+                            return new TS(Lexema, TipoToken.RW_End, CurrentIndex, CurrentLine);
+                        }
                     }
                 }
                 //Verifica se é uma string 

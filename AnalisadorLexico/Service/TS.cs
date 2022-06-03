@@ -25,7 +25,7 @@ namespace AnalisadorLexico.Service
     public static class TabelaSimbolo
     {
         public static List<TS> TabelaDeSimbolos = new List<TS>();
-        public static Dictionary<string,TipoToken> DicionarioDeSimbolos = new Dictionary<string, TipoToken>()
+        public static Dictionary<string, TipoToken> DicionarioDeSimbolos = new Dictionary<string, TipoToken>()
         {
             {"program", TipoToken.RW_Program},
             {"print",TipoToken.RW_Print },
@@ -34,6 +34,8 @@ namespace AnalisadorLexico.Service
             {"forward",TipoToken.RW_Foward},
             {"repeat",TipoToken.RW_Repeat},
             {"turn",TipoToken.RW_Turn },
+            {"do",TipoToken.RW_DO },
+            {"degrees", TipoToken.RW_Degrees }
         };
 
         public static void AdicionaSimbolo(TS Lexama)

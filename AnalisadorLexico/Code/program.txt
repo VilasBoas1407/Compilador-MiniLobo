@@ -8,7 +8,7 @@ print “iniciando loop”;
 repeat 3 do
 begin
 turn 90 degrees;
-forward var
+forward :var;
 end;
 print “fim”
-end
+end 

@@ -18,7 +18,7 @@ namespace AnalisadorLexico
             TS token = Lexer.ProximoToken();
             TabelaSimbolo.AdicionaSimbolo(token);
 
-            while (token != null && token.Tipo != TipoToken.Eof)
+            while (token != null && token.Tipo != TipoToken.RW_End && token.Tipo != TipoToken.Eof) 
             {
                 token = Lexer.ProximoToken();
                 TabelaSimbolo.AdicionaSimbolo(token);
