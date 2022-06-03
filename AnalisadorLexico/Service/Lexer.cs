@@ -6,7 +6,6 @@ namespace AnalisadorLexico.Service
     public static class Lexer
     {
         public const string QUEBRA_DE_LINHA = "\r\n";
-        public const char As = '"';
 
         public static void IniciarLexer()
         {
@@ -47,20 +46,59 @@ namespace AnalisadorLexico.Service
             return true;
         }
 
-        public static TS Error(string c)
+        public static bool IsQuote(string value)
         {
-            string msg = $"Token inválido [{c}] na linha :{CurrentLine} e coluna: {CurrentIndex}";
-            Console.WriteLine("[ERROR] :" + msg);
+            //Verifica se o caracter é uma abertura ou fechamento de aspas
+            return value.ToCharArray()[0] == 8220 || value.ToCharArray()[0] == 8221;
+        }
+
+        public static TS Error(string c, string message = null)
+        {
+            if(message == null)
+                message = $"Token inválido [{c}] na linha :{CurrentLine} e coluna: {CurrentIndex}";
+
+            Console.WriteLine("[ERROR] :" + message);
             return null;
         }
 
         public static TS ProximoToken()
         {
-          //Para fazer a contagem de linhas deve-se criar um outro index e se basear nele, enquanto CurrentIndex vai estar lendo o arquivo
+            //Para fazer a contagem de linhas deve-se criar um outro index e se basear nele, enquanto CurrentIndex vai estar lendo o arquivo
             while (true)
             {
                 string c = Source.Substring(CurrentIndex, 1);
-                char[] t = c.ToCharArray();
+
+                if (c == "\r" || c == "\n") //Nova linha 
+                {
+                    if (!FechouTexto)
+                    {
+                        return Error("",$"Quebra de linha sem fechar texto na linha : {CurrentLine} e coluna: {CurrentIndex}");
+                    }
+
+                    CurrentIndex++;
+                    Lexema += c;
+
+                    if (Lexema == "\r")
+                    {
+                        TS token = ProximoToken();
+                        if (token.Valor == "\n")
+                        {
+                            return new TS(token.Valor, TipoToken.LineBreak, CurrentIndex, CurrentLine, false);
+                        }
+
+                    }
+                    else if (Lexema == QUEBRA_DE_LINHA)
+                    {
+                        CurrentLine++;
+                        Lexema = "";
+                    }
+                    else
+                    {
+                        return Error(c);
+                    }
+                    return new TS(c, TipoToken.LineBreak, CurrentIndex, CurrentLine, false);
+                }
+  
                 if (Estado == 1)
                 {
                     if (c == "")
@@ -77,7 +115,7 @@ namespace AnalisadorLexico.Service
                     {
                         CurrentIndex++;
                         return new TS(c, TipoToken.OP_Adicao, CurrentIndex, CurrentLine);
-         
+
                     }
                     else if (c == "-")
                     {
@@ -94,10 +132,10 @@ namespace AnalisadorLexico.Service
                         CurrentIndex++;
                         return new TS(c, TipoToken.OP_Divisao, CurrentIndex, CurrentLine);
                     }
-                    else if( c== ":")
+                    else if (c == ":")
                     {
-                        Estado=2;
-                        CurrentIndex++; 
+                        Estado = 2;
+                        CurrentIndex++;
                     }
                     else if (IsDigit(c))
                     {
@@ -110,45 +148,27 @@ namespace AnalisadorLexico.Service
                         Estado = 4;
                         CurrentIndex++;
                     }
-                    else if (t[0] == As) { 
+                    else if (IsQuote(c))
+                    {
+                        CurrentIndex++;
                         Estado = 5;
                         Lexema += c;
                         FechouTexto = false;
-                    }
-                    else if(c == "\r" || c == "\n") //Nova linha 
-                    {
-                        CurrentIndex++;
-                        Lexema += c;
-
-                        if(Lexema == "\r")
-                        {
-                            TS token = ProximoToken();
-                            if(token.Valor == "\n")
-                            {
-                                return new TS(token.Valor, TipoToken.LineBreak, CurrentIndex, CurrentLine, false);
-                            }
-                                
-                        }
-                        else if (Lexema == QUEBRA_DE_LINHA)
-                        {
-                            CurrentLine++;
-                            Lexema = "";
-                        }
-                        else
-                        {
-                            return Error(c);
-                        }
-                        return new TS(c, TipoToken.LineBreak, CurrentIndex, CurrentLine, false);
                     }
                     else
                     {
                         return Error(c);
                     }
                 }
-                //Verifica se é uma palavra reservada
-                else if(Estado == 4)
+                //Verifica se é um ID
+                else if (Estado == 2)
                 {
-                    if(c == " ")
+
+                }
+                //Verifica se é uma palavra reservada
+                else if (Estado == 4)
+                {
+                    if (c == " ")
                     {
                         TipoToken token = TabelaSimbolo.BuscaSimbolo(Lexema);
                         string valor = Lexema;
@@ -163,16 +183,20 @@ namespace AnalisadorLexico.Service
                     }
                 }
                 //Verifica se é uma string 
-                else if(Estado == 5)
+                else if (Estado == 5)
                 {
                     //Fechando o texto
-                    if (c.Equals('\"'))
+                    if (IsQuote(c))
                     {
                         CurrentIndex++;
                         FechouTexto = true;
-                        return new TS(Lexema, TipoToken.String, CurrentIndex - 1, CurrentLine);
+                        Lexema += c;
+                        string valor = Lexema;
+                        Lexema = "";
+                        Estado = 1;
+                        return new TS(valor, TipoToken.String, CurrentIndex - 1, CurrentLine);
                     }
-                    else if(c == QUEBRA_DE_LINHA)
+                    else if (c == QUEBRA_DE_LINHA)
                     {
                         return Error(c);
                     }

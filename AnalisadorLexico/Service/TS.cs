@@ -60,7 +60,7 @@ namespace AnalisadorLexico.Service
             {
                 foreach (TS item in TabelaDeSimbolos)
                 {
-                    Console.WriteLine($"<{item.Tipo},{item.Valor}> Linha: {item.Linha}, Coluna: {item.Coluna}");
+                    Console.WriteLine($"<{item.Tipo},'{item.Valor}'> Linha: {item.Linha}, Coluna: {item.Coluna}");
                 }
             }
 
