@@ -23,6 +23,7 @@ namespace AnalisadorLexico.Service
             Lexema = "";
             FechouTexto = true;
             FechouPontoVirgula = true;
+            ContadorDeErro = 0;
         }
 
         public static int CurrentIndex { get; set; }
@@ -34,6 +35,7 @@ namespace AnalisadorLexico.Service
         public static int EstadoAnterior { get; set; }
         public static bool FechouTexto { get; set; }
         public static bool FechouPontoVirgula { get; set; }
+        public static int ContadorDeErro { get; set; }
 
         public static bool IsDigit(string value)
         {
@@ -57,20 +59,30 @@ namespace AnalisadorLexico.Service
 
         public static bool IsQuote(string value)
         {
-            //Verifica se o caracter é uma abertura ou fechamento de aspas
-            return value.ToCharArray()[0] == 8220 || value.ToCharArray()[0] == 8221;
+            //Verifica se o caracter é uma abertura ou fechamento de aspas,
+            //tem mais de um modo de comparar, pois por algum motivo ele estava entendendo o caracter ” diferente de aspas.
+            return value.ToCharArray()[0] == 8220 || value.ToCharArray()[0] == 8221 || value == "\"";
         }
 
-        public static TS Error(string c, string message = null)
+        public static void Error(string c, string message = null)
         {
-            if (message == null)
-                message = $"Token inválido [{c}] na linha :{CurrentLine} e coluna: {IndexOfLine}";
+            if (ContadorDeErro < 5)
+            {
+                ContadorDeErro++;
+                Avancar();
+            }
+            else
+            {
+                if (message == null)
+                    message = $"Token inválido [{c}] na linha :{CurrentLine} e coluna: {IndexOfLine}";
 
-            string msgError = "============================== ERROR =============================";
-            msgError += "\n" + message + "\n";
-            msgError += "=================================================================";
+                string msgError = "============================== ERROR =============================";
+                msgError += "\n" + message + "\n";
+                msgError += "=================================================================";
 
-            throw new Exception(msgError);
+                throw new Exception(msgError);
+            }
+
         }
 
         public static void Avancar()
@@ -87,18 +99,18 @@ namespace AnalisadorLexico.Service
                     return null;
 
                 string c = Source.Substring(CurrentIndex, 1);
-  
+
                 if (Estado == 1)
                 {
                     if (c == "\r" || c == "\n") //Nova linha 
                     {
                         if (!FechouTexto)
                         {
-                            return Error("", $"Quebra de linha sem fechar texto na linha : {CurrentLine} e coluna: {IndexOfLine}");
+                            Error("", $"Quebra de linha sem fechar texto na linha : {CurrentLine} e coluna: {IndexOfLine}");
                         }
                         else if (!FechouPontoVirgula)
                         {
-                            return Error("", $"Esperado ponto e vírgula na linha : {CurrentLine} e coluna : {IndexOfLine}");
+                            Error("", $"Esperado ponto e vírgula na linha : {CurrentLine} e coluna : {IndexOfLine}");
                         }
 
                         Avancar();
@@ -121,7 +133,7 @@ namespace AnalisadorLexico.Service
                         }
                         else
                         {
-                            return Error(c);
+                            Error(c);
                         }
                         return new TS(c, TipoToken.LineBreak, IndexOfLine, CurrentLine, false);
                     }
@@ -185,19 +197,19 @@ namespace AnalisadorLexico.Service
                         EstadoAnterior = 1;
                         FechouPontoVirgula = true;
                     }
-                    else if(c ==";" && FechouTexto)
+                    else if (c == ";" && FechouTexto)
                     {
                         Avancar();
                     }
                     else
                     {
-                        return Error(c);
+                        Error(c);
                     }
                 }
                 //Verifica se é um ID
                 else if (Estado == 2)
                 {
-                    if(c == ";")
+                    if (c == ";")
                     {
                         string valor = Lexema;
                         Lexema = "";
@@ -206,7 +218,7 @@ namespace AnalisadorLexico.Service
                         Avancar();
                         return new TS(valor, TipoToken.RW_VAR, IndexOfLine, CurrentLine);
                     }
-                    else if(c == " ")
+                    else if (c == " ")
                     {
                         string valor = Lexema;
                         Lexema = "";
@@ -215,18 +227,18 @@ namespace AnalisadorLexico.Service
                         Avancar();
                         return new TS(valor, TipoToken.RW_VAR, IndexOfLine, CurrentLine);
                     }
-                    else if(c == "\r")
+                    else if (c == "\r")
                     {
-                        return Error("", $"Esperado ; na linha : {CurrentLine} e coluna: {IndexOfLine}");
+                        Error("", $"Esperado ; na linha : {CurrentLine} e coluna: {IndexOfLine}");
                     }
-                    else 
+                    else
                     {
                         Lexema += c;
                         Avancar();
                     }
                 }
                 //Verifica se é um número
-                else if(Estado == 3)
+                else if (Estado == 3)
                 {
                     if (IsDigit(c))
                     {
@@ -258,9 +270,9 @@ namespace AnalisadorLexico.Service
                         string valor = Lexema;
                         Lexema = "";
                         Estado = 1;
-                        
+
                         if (token == TipoToken.Undefined)
-                            return Error("", "Token não reconhecido!");
+                            Error("", $"Token não reconhecido na linha : {CurrentLine} e coluna : {CurrentIndex}");
                         else
                         {
                             return new TS(valor, token, IndexOfLine, CurrentLine);
@@ -268,7 +280,7 @@ namespace AnalisadorLexico.Service
                     }
                     else
                     {
-                        if(c != ";")
+                        if (c != ";")
                             Lexema += c;
 
                         Avancar();
@@ -294,7 +306,7 @@ namespace AnalisadorLexico.Service
                     }
                     else if (c == QUEBRA_DE_LINHA || c == "\r")
                     {
-                        return Error("", $"Quebra de linha dentro de texto na linha : {CurrentLine} e coluna: {IndexOfLine}");
+                        Error("", $"Quebra de linha dentro de texto na linha : {CurrentLine} e coluna: {IndexOfLine}");
                     }
                     else
                     {

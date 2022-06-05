@@ -1,14 +1,14 @@
-﻿program “HelloMiniLogo”
+﻿program "HelloMiniLogo"
 :var;
 begin
-print “movendo para frente”;
+print "movendo para frente";
 :var 10;
 forward :var;
-print “iniciando loop”;
+print "iniciando loop";
 repeat 3 do
 begin
 turn 900 degrees;
 forward :var;
 end;
-print “fim”
+print "fim"
 end
