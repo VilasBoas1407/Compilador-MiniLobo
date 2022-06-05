@@ -63,6 +63,11 @@ namespace AnalisadorLexico.Service
             return null;
         }
 
+        public static void Avancar()
+        {
+            IndexOfLine++;
+            CurrentIndex++;
+        }
         public static TS ProximoToken()
         {
             //Para fazer a contagem de linhas deve-se criar um outro index e se basear nele, enquanto CurrentIndex vai estar lendo o arquivo
@@ -84,8 +89,7 @@ namespace AnalisadorLexico.Service
                             return Error("", $"Esperado ponto e vírgula na linha : {CurrentLine} e coluna : {IndexOfLine}");
                         }
 
-                        CurrentIndex++;
-                        IndexOfLine++;
+                        Avancar();
                         Lexema += c;
 
                         if (Lexema == "\r")
@@ -112,39 +116,33 @@ namespace AnalisadorLexico.Service
 
                     if (c == "")
                     {
-                        CurrentIndex++;
-                        IndexOfLine++;
+                        Avancar();
                         return new TS("", TipoToken.Eof, IndexOfLine, CurrentLine);
                     }
                     else if (c == " ")
                     {
                         Estado = 1;
-                        CurrentIndex++;
-                        IndexOfLine++;
+                        Avancar();
                     }
                     else if (c == "+")
                     {
-                        CurrentIndex++;
-                        IndexOfLine++;
+                        Avancar();
                         return new TS(c, TipoToken.OP_Adicao, IndexOfLine, CurrentLine);
 
                     }
                     else if (c == "-")
                     {
-                        CurrentIndex++;
-                        IndexOfLine++;
+                        Avancar();
                         return new TS(c, TipoToken.OP_Subtracao, IndexOfLine, CurrentLine);
                     }
                     else if (c == "*")
                     {
-                        CurrentIndex++;
-                        IndexOfLine++;
+                        Avancar();
                         return new TS(c, TipoToken.OP_Multiplicacao, IndexOfLine, CurrentLine);
                     }
                     else if (c == "/")
                     {
-                        CurrentIndex++;
-                        IndexOfLine++;
+                        Avancar();
                         return new TS(c, TipoToken.OP_Divisao, IndexOfLine, CurrentLine);
                     }
                     else if (c == ":")
@@ -152,8 +150,7 @@ namespace AnalisadorLexico.Service
                         FechouPontoVirgula = false;
                         Estado = 2;
                         Lexema += c;
-                        CurrentIndex++;
-                        IndexOfLine++;
+                        Avancar();
                     }
                     else if (IsDigit(c))
                     {
@@ -164,21 +161,18 @@ namespace AnalisadorLexico.Service
                     {
                         Lexema += c;
                         Estado = 4;
-                        CurrentIndex++;
-                        IndexOfLine++;
+                        Avancar();
                     }
                     else if (IsQuote(c))
                     {
-                        CurrentIndex++;
-                        IndexOfLine++;
+                        Avancar();
                         Estado = 5;
                         Lexema += c;
                         FechouTexto = false;
                     }
                     else if(c ==";" && FechouTexto)
                     {
-                        CurrentIndex++;
-                        IndexOfLine++;
+                        Avancar();
                     }
                     else
                     {
@@ -195,15 +189,13 @@ namespace AnalisadorLexico.Service
                         Lexema = "";
                         Estado = 1;
                         FechouPontoVirgula = true;
-                        CurrentIndex++;
-                        IndexOfLine++;
+                        Avancar();
                         return new TS(valor, TipoToken.RW_VAR, IndexOfLine, CurrentLine);
                     }
                     else 
                     {
                         Lexema += c;
-                        CurrentIndex++;
-                        IndexOfLine++;
+                        Avancar();
                     }
                 }
                 //Verifica se é um número
@@ -216,14 +208,12 @@ namespace AnalisadorLexico.Service
                         if (IsDigit(nextValue))
                         {
                             Lexema += c;
-                            CurrentIndex++;
-                            IndexOfLine++;
+                            Avancar();
                         }
                         else
                         {
                             Lexema += c;
-                            CurrentIndex++;
-                            IndexOfLine++;
+                            Avancar();
                             Estado = 1;
                             string valor = Lexema;
                             Lexema = "";
@@ -253,8 +243,8 @@ namespace AnalisadorLexico.Service
                     {
                         if(c != ";")
                             Lexema += c;
-                        CurrentIndex++;
-                        IndexOfLine++;
+
+                        Avancar();
 
                         if (CurrentIndex == Source.Length && TabelaSimbolo.BuscaSimbolo(Lexema) == TipoToken.RW_End)
                         {
@@ -268,8 +258,7 @@ namespace AnalisadorLexico.Service
                     //Fechando o texto
                     if (IsQuote(c))
                     {
-                        CurrentIndex++;
-                        IndexOfLine++;
+                        Avancar();
                         FechouTexto = true;
                         Lexema += c;
                         string valor = Lexema;
@@ -283,8 +272,7 @@ namespace AnalisadorLexico.Service
                     }
                     else
                     {
-                        CurrentIndex++;
-                        IndexOfLine++;
+                        Avancar();
                         Lexema += c;
                     }
                 }
