@@ -168,7 +168,6 @@ namespace AnalisadorLexico.Service
                     {
                         Avancar();
                         Estado = 5;
-                        Lexema += c;
                         FechouTexto = false;
                     }
                     else if(c ==";" && FechouTexto)
@@ -261,7 +260,6 @@ namespace AnalisadorLexico.Service
                     {
                         Avancar();
                         FechouTexto = true;
-                        Lexema += c;
                         string valor = Lexema;
                         Lexema = "";
                         Estado = 1;

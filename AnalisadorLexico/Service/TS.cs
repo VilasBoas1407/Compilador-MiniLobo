@@ -56,16 +56,26 @@ namespace AnalisadorLexico.Service
             return TipoToken.Undefined;
         }
 
-        public static void ImprimeTabela()
+        public static void ImprimeListaDeTokens()
         {
             if (TabelaDeSimbolos.Count > 0)
             {
                 foreach (TS item in TabelaDeSimbolos)
                 {
-                    Console.WriteLine($"<{item.Tipo},'{item.Valor}'> Linha: {item.Linha}, Coluna: {item.Coluna}");
+                    Console.WriteLine($"<{item.Tipo},\"{item.Valor}\"> Linha: {item.Linha}, Coluna: {item.Coluna}");
                 }
             }
+        }
 
+        public static void ImprimeTabelaDeSimbolos()
+        {
+            Console.WriteLine("======= Tabela de Símbolos ===== \n");
+            
+            foreach (var item in DicionarioDeSimbolos)
+            {
+                string line = $"{item.Key} : <{item.Value}, \"{item.Key}\">";
+                Console.WriteLine(line);
+            }
         }
     }
 

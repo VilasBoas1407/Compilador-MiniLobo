@@ -25,7 +25,11 @@ namespace AnalisadorLexico
             }
 
 
-            TabelaSimbolo.ImprimeTabela();
+            TabelaSimbolo.ImprimeListaDeTokens();
+
+            Console.WriteLine();
+
+            TabelaSimbolo.ImprimeTabelaDeSimbolos();
         }
 
     }
