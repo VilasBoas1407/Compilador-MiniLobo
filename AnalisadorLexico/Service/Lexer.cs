@@ -58,8 +58,9 @@ namespace AnalisadorLexico.Service
         {
             if(message == null)
                 message = $"Token inválido [{c}] na linha :{CurrentLine} e coluna: {IndexOfLine}";
-
-            Console.WriteLine("[ERROR] :" + message);
+            Console.WriteLine("============================== ERROR =============================");
+            Console.WriteLine("\n" + message + "\n");
+            Console.WriteLine("=================================================================");
             return null;
         }
 
@@ -265,9 +266,9 @@ namespace AnalisadorLexico.Service
                         Estado = 1;
                         return new TS(valor, TipoToken.String, IndexOfLine - 1, CurrentLine);
                     }
-                    else if (c == QUEBRA_DE_LINHA)
+                    else if (c == QUEBRA_DE_LINHA || c == "\r")
                     {
-                        return Error(c);
+                        return Error("", $"Quebra de linha dentro de texto na linha : {CurrentLine} e coluna: {IndexOfLine}");
                     }
                     else
                     {
