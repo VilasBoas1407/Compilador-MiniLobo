@@ -1,5 +1,5 @@
 ﻿program “HelloMiniLogo”
-:var
+:var;
 begin
 print “movendo para frente”;
 :var 10;

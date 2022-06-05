@@ -1,15 +1,21 @@
 ﻿using AnalisadorLexico.Model;
 using System;
+using System.IO;
 
 namespace AnalisadorLexico.Service
 {
     public static class Lexer
     {
         public const string QUEBRA_DE_LINHA = "\r\n";
-
+        public const string CAMINHO_DO_ARQUIVO = @"D:\Projetos\Compilador - MiniLobo\AnalisadorLexico\Code\program.txt";
         public static void IniciarLexer()
         {
-            Source = System.IO.File.ReadAllText(@"D:\Projetos\Compilador - MiniLobo\AnalisadorLexico\Code\program.txt");
+            if (!File.Exists(CAMINHO_DO_ARQUIVO))
+            {
+                throw new Exception("Nenhum arquivo foi encontrado no caminho a seguir: " + CAMINHO_DO_ARQUIVO);
+            }
+
+            Source = File.ReadAllText(CAMINHO_DO_ARQUIVO);
             CurrentLine = 1;
             CurrentIndex = 0;
             IndexOfLine = 0;
