@@ -10,7 +10,6 @@ namespace AnalisadorLexico
         static void Main(string[] args)
         {
             Console.WriteLine("=========== COMPILADOR MINI LOBO ============== \n \n");
-            Console.WriteLine("DESENVOLVIDO POR: LUCAS VILAS BOAS LAGE \n \n");
             Console.WriteLine("Iniciando leitura do arquivo \n \n");
 
             try
