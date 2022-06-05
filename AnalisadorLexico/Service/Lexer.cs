@@ -196,7 +196,7 @@ namespace AnalisadorLexico.Service
                         Avancar();
                         Estado = 5;
                         FechouTexto = false;
-                    }                    
+                    }
                     else if (c == "{")
                     {
                         Avancar();
@@ -327,15 +327,15 @@ namespace AnalisadorLexico.Service
                     }
                 }
                 //Valida comentário
-                else if( Estado == 6)
+                else if (Estado == 6)
                 {
-                    if(c == "}")
+                    if (c == "}")
                     {
                         Avancar();
                         FechouComentario = true;
                         Estado = 1;
                     }
-                    else if(IsBreakLine(c))
+                    else if (IsBreakLine(c))
                     {
                         Error("", $"Quebra de linha dentro de comentário na linha : {CurrentLine} e coluna: {IndexOfLine}");
                     }
@@ -348,3 +348,8 @@ namespace AnalisadorLexico.Service
         }
     }
 }
+/*
+    Trabalho desenvolvido por : 
+        Lucas Vilas Boas Lage - RA: 119119592
+        Leandro César Lopes Cardoso - RA: 119210676
+ */

@@ -42,3 +42,8 @@ namespace AnalisadorLexico
 
     }
 }
+/*
+    Trabalho desenvolvido por : 
+        Lucas Vilas Boas Lage - RA: 119119592
+        Leandro César Lopes Cardoso - RA: 119210676
+ */
