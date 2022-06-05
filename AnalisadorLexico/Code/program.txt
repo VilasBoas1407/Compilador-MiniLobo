@@ -7,7 +7,7 @@ forward :var;
 print “iniciando loop”;
 repeat 3 do
 begin
-turn 90 degrees;
+turn 900 degrees;
 forward :var;
 end;
 print “fim”

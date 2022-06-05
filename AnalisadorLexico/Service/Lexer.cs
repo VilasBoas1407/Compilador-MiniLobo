@@ -70,7 +70,6 @@ namespace AnalisadorLexico.Service
         }
         public static TS ProximoToken()
         {
-            //Para fazer a contagem de linhas deve-se criar um outro index e se basear nele, enquanto CurrentIndex vai estar lendo o arquivo
             while (true)
             {
                 //Termina a compilação
@@ -157,7 +156,6 @@ namespace AnalisadorLexico.Service
                     }
                     else if (IsDigit(c))
                     {
-                        Lexema += c;
                         Estado = 3;
                     }
                     else if (IsLetter(c))
