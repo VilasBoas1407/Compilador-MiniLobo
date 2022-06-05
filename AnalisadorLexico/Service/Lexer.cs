@@ -35,6 +35,7 @@ namespace AnalisadorLexico.Service
         public static int EstadoAnterior { get; set; }
         public static bool FechouTexto { get; set; }
         public static bool FechouPontoVirgula { get; set; }
+        public static bool FechouComentario { get; set; }
         public static int ContadorDeErro { get; set; }
 
         public static bool IsDigit(string value)
@@ -64,9 +65,14 @@ namespace AnalisadorLexico.Service
             return value.ToCharArray()[0] == 8220 || value.ToCharArray()[0] == 8221 || value == "\"";
         }
 
+        public static bool IsBreakLine(string value)
+        {
+            return value == "\n" || value == "\r" || value == "\r\n";
+        }
+
         public static void Error(string c, string message = null)
         {
-            if (ContadorDeErro < 5)
+            if (ContadorDeErro > 0)
             {
                 ContadorDeErro++;
                 Avancar();
@@ -82,7 +88,6 @@ namespace AnalisadorLexico.Service
 
                 throw new Exception(msgError);
             }
-
         }
 
         public static void Avancar()
@@ -90,6 +95,7 @@ namespace AnalisadorLexico.Service
             IndexOfLine++;
             CurrentIndex++;
         }
+
         public static TS ProximoToken()
         {
             while (true)
@@ -102,7 +108,7 @@ namespace AnalisadorLexico.Service
 
                 if (Estado == 1)
                 {
-                    if (c == "\r" || c == "\n") //Nova linha 
+                    if (IsBreakLine(c)) //Nova linha 
                     {
                         if (!FechouTexto)
                         {
@@ -190,6 +196,12 @@ namespace AnalisadorLexico.Service
                         Avancar();
                         Estado = 5;
                         FechouTexto = false;
+                    }                    
+                    else if (c == "{")
+                    {
+                        Avancar();
+                        Estado = 6;
+                        FechouComentario = false;
                     }
                     else if (EstadoAnterior == 2 && !FechouPontoVirgula)
                     {
@@ -227,7 +239,7 @@ namespace AnalisadorLexico.Service
                         Avancar();
                         return new TS(valor, TipoToken.RW_VAR, IndexOfLine, CurrentLine);
                     }
-                    else if (c == "\r")
+                    else if (IsBreakLine(c))
                     {
                         Error("", $"Esperado ; na linha : {CurrentLine} e coluna: {IndexOfLine}");
                     }
@@ -263,7 +275,7 @@ namespace AnalisadorLexico.Service
                 //Verifica se é uma palavra reservada
                 else if (Estado == 4)
                 {
-                    if (c == " " || c == "\r" || c == QUEBRA_DE_LINHA)
+                    if (c == " " || IsBreakLine(c))
                     {
                         TipoToken token = TabelaSimbolo.BuscaSimbolo(Lexema);
 
@@ -304,7 +316,7 @@ namespace AnalisadorLexico.Service
                         Estado = 1;
                         return new TS(valor, TipoToken.String, IndexOfLine - 1, CurrentLine);
                     }
-                    else if (c == QUEBRA_DE_LINHA || c == "\r")
+                    else if (IsBreakLine(c))
                     {
                         Error("", $"Quebra de linha dentro de texto na linha : {CurrentLine} e coluna: {IndexOfLine}");
                     }
@@ -312,6 +324,24 @@ namespace AnalisadorLexico.Service
                     {
                         Avancar();
                         Lexema += c;
+                    }
+                }
+                //Valida comentário
+                else if( Estado == 6)
+                {
+                    if(c == "}")
+                    {
+                        Avancar();
+                        FechouComentario = true;
+                        Estado = 1;
+                    }
+                    else if(IsBreakLine(c))
+                    {
+                        Error("", $"Quebra de linha dentro de comentário na linha : {CurrentLine} e coluna: {IndexOfLine}");
+                    }
+                    else
+                    {
+                        Avancar();
                     }
                 }
             }

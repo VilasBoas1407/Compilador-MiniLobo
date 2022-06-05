@@ -1,4 +1,5 @@
 ﻿program "HelloMiniLogo"
+{Comentário}
 :var;
 begin
 print "movendo para frente";
