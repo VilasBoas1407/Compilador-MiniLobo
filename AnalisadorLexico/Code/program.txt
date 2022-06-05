@@ -1,6 +1,5 @@
-﻿program “HelloM
-iniLogo”
-:var;
+﻿program “HelloMiniLogo”
+:var
 begin
 print “movendo para frente”;
 :var 10;

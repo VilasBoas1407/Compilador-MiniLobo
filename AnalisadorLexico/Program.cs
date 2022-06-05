@@ -18,18 +18,26 @@ namespace AnalisadorLexico
             TS token = Lexer.ProximoToken();
             TabelaSimbolo.AdicionaSimbolo(token);
 
-            while (token != null && token.Tipo != TipoToken.Eof) 
+            try
             {
-                token = Lexer.ProximoToken();
-                TabelaSimbolo.AdicionaSimbolo(token);
+                while (token != null && token.Tipo != TipoToken.Eof)
+                {
+                    token = Lexer.ProximoToken();
+                    TabelaSimbolo.AdicionaSimbolo(token);
+                }
+
+
+                TabelaSimbolo.ImprimeListaDeTokens();
+
+                Console.WriteLine();
+
+                TabelaSimbolo.ImprimeTabelaDeSimbolos();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
             }
 
-
-            TabelaSimbolo.ImprimeListaDeTokens();
-
-            Console.WriteLine();
-
-            TabelaSimbolo.ImprimeTabelaDeSimbolos();
         }
 
     }

@@ -25,6 +25,7 @@ namespace AnalisadorLexico.Service
         public static string Source { get; set; }
         public static string Lexema { get; set; }
         public static int Estado { get; set; }
+        public static int EstadoAnterior { get; set; }
         public static bool FechouTexto { get; set; }
         public static bool FechouPontoVirgula { get; set; }
 
@@ -56,12 +57,14 @@ namespace AnalisadorLexico.Service
 
         public static TS Error(string c, string message = null)
         {
-            if(message == null)
+            if (message == null)
                 message = $"Token inválido [{c}] na linha :{CurrentLine} e coluna: {IndexOfLine}";
-            Console.WriteLine("============================== ERROR =============================");
-            Console.WriteLine("\n" + message + "\n");
-            Console.WriteLine("=================================================================");
-            return null;
+
+            string msgError = "============================== ERROR =============================";
+            msgError += "\n" + message + "\n";
+            msgError += "=================================================================";
+
+            throw new Exception(msgError);
         }
 
         public static void Avancar()
@@ -152,7 +155,6 @@ namespace AnalisadorLexico.Service
                     {
                         FechouPontoVirgula = false;
                         Estado = 2;
-                        Lexema += c;
                         Avancar();
                     }
                     else if (IsDigit(c))
@@ -171,6 +173,12 @@ namespace AnalisadorLexico.Service
                         Estado = 5;
                         FechouTexto = false;
                     }
+                    else if (EstadoAnterior == 2 && !FechouPontoVirgula)
+                    {
+                        Avancar();
+                        EstadoAnterior = 1;
+                        FechouPontoVirgula = true;
+                    }
                     else if(c ==";" && FechouTexto)
                     {
                         Avancar();
@@ -185,13 +193,25 @@ namespace AnalisadorLexico.Service
                 {
                     if(c == ";")
                     {
-                        Lexema += c;
                         string valor = Lexema;
                         Lexema = "";
                         Estado = 1;
                         FechouPontoVirgula = true;
                         Avancar();
                         return new TS(valor, TipoToken.RW_VAR, IndexOfLine, CurrentLine);
+                    }
+                    else if(c == " ")
+                    {
+                        string valor = Lexema;
+                        Lexema = "";
+                        EstadoAnterior = 2;
+                        Estado = 1;
+                        Avancar();
+                        return new TS(valor, TipoToken.RW_VAR, IndexOfLine, CurrentLine);
+                    }
+                    else if(c == "\r")
+                    {
+                        return Error("", $"Esperado ; na linha : {CurrentLine} e coluna: {IndexOfLine}");
                     }
                     else 
                     {
