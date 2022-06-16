@@ -1,6 +1,6 @@
 ﻿using AnalisadorLexico.Model;
 using AnalisadorLexico.Service;
-using AnalisadorSintatico;
+using Compilador.Service;
 using System;
 using System.Collections.Generic;
 
@@ -41,7 +41,7 @@ namespace AnalisadorLexico
 
                 Console.WriteLine("\n \n ================ Iniciando analisador sintático  ================ \n \n");
 
-                Parser.Validar();
+                Parser.Validar(TabelaSimbolo.RetornaListaDeTokens());
             }
             catch (Exception ex)
             {

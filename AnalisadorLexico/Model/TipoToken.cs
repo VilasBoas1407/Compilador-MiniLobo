@@ -18,6 +18,7 @@
         RW_Foward,
         RW_Repeat,
         RW_Turn,
+        RW_IF,
         RW_Degrees,
         OP_Adicao,
         OP_Subtracao,

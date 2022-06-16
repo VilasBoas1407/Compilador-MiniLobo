@@ -1,15 +1,15 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Projetos\\Compilador - MiniLobo\\AnalisadorLexico\\AnalisadorLexico.csproj": {}
+    "D:\\Projetos\\Compilador - MiniLobo\\AnalisadorLexico\\Compilador.csproj": {}
   },
   "projects": {
-    "D:\\Projetos\\Compilador - MiniLobo\\AnalisadorLexico\\AnalisadorLexico.csproj": {
+    "D:\\Projetos\\Compilador - MiniLobo\\AnalisadorLexico\\Compilador.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Projetos\\Compilador - MiniLobo\\AnalisadorLexico\\AnalisadorLexico.csproj",
-        "projectName": "AnalisadorLexico",
-        "projectPath": "D:\\Projetos\\Compilador - MiniLobo\\AnalisadorLexico\\AnalisadorLexico.csproj",
+        "projectUniqueName": "D:\\Projetos\\Compilador - MiniLobo\\AnalisadorLexico\\Compilador.csproj",
+        "projectName": "Compilador",
+        "projectPath": "D:\\Projetos\\Compilador - MiniLobo\\AnalisadorLexico\\Compilador.csproj",
         "packagesPath": "C:\\Users\\lucas\\.nuget\\packages\\",
         "outputPath": "D:\\Projetos\\Compilador - MiniLobo\\AnalisadorLexico\\obj\\",
         "projectStyle": "PackageReference",
