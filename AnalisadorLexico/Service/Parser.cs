@@ -139,7 +139,6 @@ namespace Compilador.Service
             StatementList_();
         }
 
-        //Representa o StatementeList' da gramática
         private static void StatementList_()
         {
             StatementList();
