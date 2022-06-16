@@ -11,15 +11,15 @@ namespace AnalisadorLexico
 
         static void Main(string[] args)
         {
-            Console.WriteLine("=========== COMPILADOR MINI LOBO ============== \n \n");
-            Console.WriteLine("Iniciando leitura do arquivo \n \n");
+            Console.WriteLine("================================= COMPILADOR MINI LOBO ===================================== \n \n");
+            Console.WriteLine("                              Iniciando leitura do arquivo \n \n");
 
             try
             {
 
                 Lexer.IniciarLexer();
 
-                Console.WriteLine("\n ================ Iniciando analisador léxico ================\n \n");
+                Console.WriteLine("\n ============================ Iniciando analisador léxico ==================================\n");
 
                 TS token = Lexer.ProximoToken();
                 TabelaSimbolo.AdicionaSimbolo(token);
@@ -39,7 +39,7 @@ namespace AnalisadorLexico
 
                 TabelaSimbolo.ImprimeTabelaDeSimbolos();
 
-                Console.WriteLine("\n \n ================ Iniciando analisador sintático  ================ \n \n");
+                Console.WriteLine("\n \n ================ Iniciando analisador sintático  ========================= \n");
 
                 Parser.Validar(TabelaSimbolo.RetornaListaDeTokens());
             }

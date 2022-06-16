@@ -36,7 +36,8 @@ namespace Compilador.Service
             Tokens = TabelaDeTokens;
             TokenAtual = TabelaDeTokens[0].Tipo;
             Program();
-            Console.WriteLine("Validado");
+            Console.WriteLine("                             Código Validado!");
+            Console.WriteLine("\n ================ Fim da Execução do Analisador Sintático =================");
         }
 
         private static void Program()
