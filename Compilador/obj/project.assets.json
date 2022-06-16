@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Projetos\\Compilador - MiniLobo\\AnalisadorLexico\\Compilador.csproj",
+      "projectUniqueName": "D:\\Projetos\\Compilador - MiniLobo\\Compilador\\Compilador.csproj",
       "projectName": "Compilador",
-      "projectPath": "D:\\Projetos\\Compilador - MiniLobo\\AnalisadorLexico\\Compilador.csproj",
+      "projectPath": "D:\\Projetos\\Compilador - MiniLobo\\Compilador\\Compilador.csproj",
       "packagesPath": "C:\\Users\\lucas\\.nuget\\packages\\",
-      "outputPath": "D:\\Projetos\\Compilador - MiniLobo\\AnalisadorLexico\\obj\\",
+      "outputPath": "D:\\Projetos\\Compilador - MiniLobo\\Compilador\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\lucas\\AppData\\Roaming\\NuGet\\NuGet.Config",
