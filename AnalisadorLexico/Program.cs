@@ -1,6 +1,8 @@
 ﻿using AnalisadorLexico.Model;
 using AnalisadorLexico.Service;
+using AnalisadorSintatico;
 using System;
+using System.Collections.Generic;
 
 namespace AnalisadorLexico
 {
@@ -17,6 +19,8 @@ namespace AnalisadorLexico
 
                 Lexer.IniciarLexer();
 
+                Console.WriteLine("\n ================ Iniciando analisador léxico ================\n \n");
+
                 TS token = Lexer.ProximoToken();
                 TabelaSimbolo.AdicionaSimbolo(token);
 
@@ -29,9 +33,15 @@ namespace AnalisadorLexico
 
                 TabelaSimbolo.ImprimeListaDeTokens();
 
+                List<TS> TabelaDeSimbolos = TabelaSimbolo.RetornaListaDeTokens();
+
                 Console.WriteLine();
 
                 TabelaSimbolo.ImprimeTabelaDeSimbolos();
+
+                Console.WriteLine("\n \n ================ Iniciando analisador sintático  ================ \n \n");
+
+                Parser.Validar();
             }
             catch (Exception ex)
             {

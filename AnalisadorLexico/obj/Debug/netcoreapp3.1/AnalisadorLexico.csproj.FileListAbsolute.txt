@@ -26,3 +26,6 @@ D:\Projetos\Compilador - MiniLobo\AnalisadorLexico\obj\Debug\netcoreapp3.1\Anali
 D:\Projetos\Compilador - MiniLobo\AnalisadorLexico\obj\Debug\netcoreapp3.1\AnalisadorLexico.dll
 D:\Projetos\Compilador - MiniLobo\AnalisadorLexico\obj\Debug\netcoreapp3.1\AnalisadorLexico.pdb
 D:\Projetos\Compilador - MiniLobo\AnalisadorLexico\obj\Debug\netcoreapp3.1\AnalisadorLexico.genruntimeconfig.cache
+D:\Projetos\Compilador - MiniLobo\AnalisadorLexico\bin\Debug\netcoreapp3.1\AnalisadorSintatico.dll
+D:\Projetos\Compilador - MiniLobo\AnalisadorLexico\bin\Debug\netcoreapp3.1\AnalisadorSintatico.pdb
+D:\Projetos\Compilador - MiniLobo\AnalisadorLexico\obj\Debug\netcoreapp3.1\AnalisadorLexico.csproj.CopyComplete

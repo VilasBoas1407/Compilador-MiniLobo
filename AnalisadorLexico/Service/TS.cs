@@ -25,6 +25,7 @@ namespace AnalisadorLexico.Service
     public static class TabelaSimbolo
     {
         public static List<TS> TabelaDeSimbolos = new List<TS>();
+
         public static Dictionary<string, TipoToken> DicionarioDeSimbolos = new Dictionary<string, TipoToken>()
         {
             {"program", TipoToken.RW_Program},
@@ -69,13 +70,18 @@ namespace AnalisadorLexico.Service
 
         public static void ImprimeTabelaDeSimbolos()
         {
-            Console.WriteLine("======= Tabela de Símbolos ===== \n");
+            Console.WriteLine("================ Tabela de Símbolos ================ \n");
             
             foreach (var item in DicionarioDeSimbolos)
             {
                 string line = $"{item.Key} : <{item.Value}, \"{item.Key}\">";
                 Console.WriteLine(line);
             }
+        }
+
+        public static List<TS> RetornaListaDeTokens()
+        {
+            return TabelaDeSimbolos;
         }
     }
 
