@@ -1,17 +1,16 @@
 ﻿program “HelloMiniLogo”
-:var1; :var2;
+:var1;:var2;
 begin
 print “movendo para frente”;
-:var1 10;
-:var2 0;
+:var2 10;
+:var2 :var1;
 forward :var1;
 print “iniciando loop”;
 repeat 3 do
 begin
 turn 90 degrees;
 forward :var1;
-end;;
+end;
 :var1; :var2;
-print “fim
-”
+print “fim”
 end

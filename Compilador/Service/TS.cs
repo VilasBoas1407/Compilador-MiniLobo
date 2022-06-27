@@ -85,6 +85,7 @@ namespace AnalisadorLexico.Service
         {
             return TabelaDeSimbolos;
         }
+
     }
 
 }

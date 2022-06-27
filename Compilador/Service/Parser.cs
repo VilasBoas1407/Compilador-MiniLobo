@@ -8,16 +8,23 @@ namespace Compilador.Service
     public static class Parser
     {
         public static List<TS> Tokens = new List<TS>();
+        public static List<TS> TokensJaReconhecidos = new List<TS>();
         public static TipoToken TokenAtual;
+        public static string ValorAtual;
         public static int Contador = 0;
 
         private static void Avancar()
         {
+            TokensJaReconhecidos.Add(Tokens[Contador]);
             Contador++;
             if (Contador == Tokens.Count)
                 TokenAtual = TipoToken.Eof;
             else
+            {
                 TokenAtual = Tokens[Contador].Tipo;
+                ValorAtual = Tokens[Contador].Valor;
+            }
+                
                     
         }
 
@@ -31,10 +38,16 @@ namespace Compilador.Service
             throw new Exception("[ERRO SINTÁTICO]" + msg);
         }
 
+        private static void ErrorSemantico(string msg)
+        {
+            throw new Exception("[ERRO SEMÂNTICO]" + msg);
+        }
+
         public static void Validar(List<TS> TabelaDeTokens)
         {
             Tokens = TabelaDeTokens;
             TokenAtual = TabelaDeTokens[0].Tipo;
+            ValorAtual=TabelaDeTokens[0].Valor;
             Program();
             Console.WriteLine("                             Código Validado!");
             Console.WriteLine("\n ================ Fim da Execução do Analisador Sintático =================");
@@ -168,9 +181,20 @@ namespace Compilador.Service
 
         private static void Term()
         {
-            if (TokenAtual == TipoToken.Number || TokenAtual == TipoToken.RW_VAR)
+            if (TokenAtual == TipoToken.Number)
             {
                 Avancar();
+            }
+            else if(TokenAtual == TipoToken.RW_VAR)
+            {
+                if (TokensJaReconhecidos.Exists(t => t.Valor == ValorAtual))
+                {
+                    Avancar();
+                }
+                else
+                {
+                    ErrorSemantico($"Variável não declarada: {ValorAtual}");
+                }
             }
             else
                 Error($"Token inválido, era esperado um token do tipo {TipoToken.Number} ou {TipoToken.RW_VAR}");
@@ -219,8 +243,15 @@ namespace Compilador.Service
         {
             if(TokenAtual == TipoToken.RW_VAR)
             {
-                Avancar();
-                Expr();
+                if(TokensJaReconhecidos.Exists(t => t.Valor == ValorAtual))
+                {
+                    Avancar();
+                    Expr();
+                }
+                else
+                {
+                    ErrorSemantico($"Variável não declarada: {ValorAtual}");
+                }
             }
         }
 

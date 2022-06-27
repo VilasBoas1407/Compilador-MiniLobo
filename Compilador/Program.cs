@@ -22,6 +22,7 @@ namespace AnalisadorLexico
                 Console.WriteLine("\n ============================ Iniciando analisador léxico ==================================\n");
 
                 TS token = Lexer.ProximoToken();
+
                 TabelaSimbolo.AdicionaSimbolo(token);
 
                 while (token != null && token.Tipo != TipoToken.Eof)
@@ -42,6 +43,7 @@ namespace AnalisadorLexico
                 Console.WriteLine("\n \n ================ Iniciando analisador sintático  ========================= \n");
 
                 Parser.Validar(TabelaSimbolo.RetornaListaDeTokens());
+
             }
             catch (Exception ex)
             {
