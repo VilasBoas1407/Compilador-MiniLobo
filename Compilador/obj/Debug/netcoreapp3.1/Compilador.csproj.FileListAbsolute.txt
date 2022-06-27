@@ -12,3 +12,17 @@ D:\Projetos\Compilador - MiniLobo\AnalisadorLexico\bin\Debug\netcoreapp3.1\Compi
 D:\Projetos\Compilador - MiniLobo\AnalisadorLexico\obj\Debug\netcoreapp3.1\Compilador.dll
 D:\Projetos\Compilador - MiniLobo\AnalisadorLexico\obj\Debug\netcoreapp3.1\Compilador.pdb
 D:\Projetos\Compilador - MiniLobo\AnalisadorLexico\obj\Debug\netcoreapp3.1\Compilador.genruntimeconfig.cache
+D:\Projetos\Compilador - MiniLobo\Compilador\bin\Debug\netcoreapp3.1\Compilador.exe
+D:\Projetos\Compilador - MiniLobo\Compilador\bin\Debug\netcoreapp3.1\Compilador.deps.json
+D:\Projetos\Compilador - MiniLobo\Compilador\bin\Debug\netcoreapp3.1\Compilador.runtimeconfig.json
+D:\Projetos\Compilador - MiniLobo\Compilador\bin\Debug\netcoreapp3.1\Compilador.runtimeconfig.dev.json
+D:\Projetos\Compilador - MiniLobo\Compilador\bin\Debug\netcoreapp3.1\Compilador.dll
+D:\Projetos\Compilador - MiniLobo\Compilador\bin\Debug\netcoreapp3.1\Compilador.pdb
+D:\Projetos\Compilador - MiniLobo\Compilador\obj\Debug\netcoreapp3.1\Compilador.csproj.AssemblyReference.cache
+D:\Projetos\Compilador - MiniLobo\Compilador\obj\Debug\netcoreapp3.1\Compilador.GeneratedMSBuildEditorConfig.editorconfig
+D:\Projetos\Compilador - MiniLobo\Compilador\obj\Debug\netcoreapp3.1\Compilador.AssemblyInfoInputs.cache
+D:\Projetos\Compilador - MiniLobo\Compilador\obj\Debug\netcoreapp3.1\Compilador.AssemblyInfo.cs
+D:\Projetos\Compilador - MiniLobo\Compilador\obj\Debug\netcoreapp3.1\Compilador.csproj.CoreCompileInputs.cache
+D:\Projetos\Compilador - MiniLobo\Compilador\obj\Debug\netcoreapp3.1\Compilador.dll
+D:\Projetos\Compilador - MiniLobo\Compilador\obj\Debug\netcoreapp3.1\Compilador.pdb
+D:\Projetos\Compilador - MiniLobo\Compilador\obj\Debug\netcoreapp3.1\Compilador.genruntimeconfig.cache

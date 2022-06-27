@@ -37,9 +37,8 @@ namespace AnalisadorLexico.Service
             {"turn",TipoToken.RW_Turn },
             {"if", TipoToken.RW_IF },
             {"do",TipoToken.RW_DO },
-            {"degrees", TipoToken.RW_Degrees }
-
-
+            {"degrees", TipoToken.RW_Degrees },
+            {"var",TipoToken.RW_VAR }
         };
 
         public static void AdicionaSimbolo(TS Lexama)

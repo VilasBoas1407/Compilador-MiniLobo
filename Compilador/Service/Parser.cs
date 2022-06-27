@@ -73,6 +73,8 @@ namespace Compilador.Service
             if(TokenAtual == TipoToken.RW_VAR)
             {
                 Avancar();
+                if (TokenAtual == TipoToken.RW_VAR)
+                    Decl();
             }   
             else
             {

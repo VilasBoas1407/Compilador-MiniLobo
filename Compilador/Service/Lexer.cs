@@ -7,7 +7,7 @@ namespace AnalisadorLexico.Service
     public static class Lexer
     {
         public const string QUEBRA_DE_LINHA = "\r\n";
-        public const string CAMINHO_DO_ARQUIVO = @"D:\Projetos\Compilador - MiniLobo\AnalisadorLexico\Code\program.txt";
+        public const string CAMINHO_DO_ARQUIVO = @"D:\Projetos\Compilador - MiniLobo\Compilador\Code\program.txt";
         public static void IniciarLexer()
         {
             if (!File.Exists(CAMINHO_DO_ARQUIVO))
@@ -275,7 +275,7 @@ namespace AnalisadorLexico.Service
                 //Verifica se é uma palavra reservada
                 else if (Estado == 4)
                 {
-                    if (c == " " || IsBreakLine(c))
+                    if (IsBreakLine(c)  || c == " " )
                     {
                         TipoToken token = TabelaSimbolo.BuscaSimbolo(Lexema);
 
