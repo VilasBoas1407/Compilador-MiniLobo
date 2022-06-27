@@ -72,7 +72,7 @@ namespace AnalisadorLexico.Service
 
         public static void Error(string c, string message = null)
         {
-            if (ContadorDeErro > 0)
+            if (ContadorDeErro < 5)
             {
                 ContadorDeErro++;
                 Avancar();
